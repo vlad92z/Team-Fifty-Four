@@ -2,6 +2,9 @@ package uk.co.barclays.openminds.model;
 
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class StandingOrder {
 	
 	private String name;
