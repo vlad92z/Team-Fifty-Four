@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.vlad.barclaysmobile.R;
 import com.vlad.barclaysmobile.adventure.AdventureActivity;
-import com.vlad.barclaysmobile.adventure.AdventureMenuAdapter;
+import com.vlad.barclaysmobile.adventure.MenuAdapter;
 import com.vlad.barclaysmobile.dashboard.DashboardTransactionFragment;
 import com.vlad.barclaysmobile.utils.Utils;
 
@@ -58,7 +58,7 @@ public class AdventureSelectionActivity extends Activity {
         mDrawerList = (ListView) findViewById(R.id.object_left_drawer);
 
         // Set the adapter for the list view
-        mDrawerList.setAdapter(new AdventureMenuAdapter());
+        mDrawerList.setAdapter(new MenuAdapter(this));
         // Set the list's click listener
         Utils.setMenuListener(mDrawerList, this);
 

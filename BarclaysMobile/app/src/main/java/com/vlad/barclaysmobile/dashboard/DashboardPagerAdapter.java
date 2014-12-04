@@ -16,14 +16,14 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter {
         Fragment fragment;
         switch (i) {
             case 0:
-                
+
                 fragment = new DashboardTransactionFragment();
                 break;
             case 1:
                 fragment = new DashboardCategoryFragment();
                 break;
             case 2:
-                fragment = new DashboardTransactionFragment();
+                fragment = new DashboardForecastFragment();
                 break;
             default:
                 fragment = new DashboardTransactionFragment();
