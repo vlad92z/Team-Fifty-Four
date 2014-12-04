@@ -19,6 +19,7 @@ public class Statement {
 	private List<Transaction> transactions;
 	private DateTime start;
 	private DateTime end;
+	private static Statement statement = null;
 
 	public Statement(List<Transaction> transactions, DateTime start,
 			DateTime end) {
@@ -42,10 +43,19 @@ public class Statement {
 		this.transactions = new ArrayList<Transaction>();
 	}
 
-	public static Statement readStatement(String filename)
+	public static Statement getInstance()
 			throws JsonParseException, JsonMappingException, IOException {
-		return Util.mapper.readValue(new File(filename), Statement.class);
+		return readInstance("D:\\workspace\\Team-Fifty-Four\\data\\convertcsv.json");
 	}
+	
+	public static Statement readInstance(String filename)
+			throws JsonParseException, JsonMappingException, IOException {
+		if (statement == null)
+			statement = Util.mapper.readValue(new File(filename), Statement.class);
+		return statement;
+	}
+	
+	
 
 	public List<Transaction> getTransactions() {
 		return transactions;
@@ -86,5 +96,6 @@ public class Statement {
 		return "Statement [transactions=" + transactions + ", start=" + start
 				+ ", end=" + end + "]";
 	}
+
 
 }

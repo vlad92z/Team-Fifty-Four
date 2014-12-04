@@ -1,12 +1,15 @@
 package uk.co.barclays.openminds.model;
 
+import java.util.Comparator;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Transaction {
+public class Transaction implements Comparator<Transaction>,
+		Comparable<Transaction> {
 
 	public enum TransactionType {
 		BGC("BGC"), // Bank Giro Credit
@@ -255,5 +258,20 @@ public class Transaction {
 				+ cleared + ", balance=" + balance + ", category=" + category
 				+ "]";
 	}
+
+	@Override
+	public int compareTo(Transaction transaction) {
+		return date.compareTo(transaction.getDate());
+	}
+	
+	@Override
+	public int compare(Transaction t1, Transaction t2) {
+		return t1.compareTo(t2);
+	}
+	
+	public int compareDate(DateTime dt) {
+		return date.compareTo(dt);
+	}
+
 
 }

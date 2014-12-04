@@ -81,4 +81,13 @@ public class StandingOrder {
 		this.descriotion = descriotion;
 	}
 
+	@Override
+	public String toString() {
+		return "StandingOrder [name=" + name + ", amount=" + amount + ", date="
+				+ date + ", frequency=" + frequency + ", account=" + account
+				+ ", descriotion=" + descriotion + "]";
+	}
+	
+	
+
 }

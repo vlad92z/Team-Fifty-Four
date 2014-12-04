@@ -82,4 +82,12 @@ public class Card {
 	public void setExpires(DateTime expires) {
 		this.expires = expires;
 	}
+
+	@Override
+	public String toString() {
+		return "Card [name=" + name + ", type=" + type + ", number=" + number
+				+ ", expires=" + expires + "]";
+	}
+	
+	
 }
