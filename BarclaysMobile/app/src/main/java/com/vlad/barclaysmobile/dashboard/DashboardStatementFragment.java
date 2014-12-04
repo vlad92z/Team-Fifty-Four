@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,38 +11,17 @@ import android.widget.TextView;
 
 import com.vlad.barclaysmobile.adventure.AdventureActivity;
 import com.vlad.barclaysmobile.R;
-import com.vlad.barclaysmobile.utils.MockDatabase;
 
 /**
  * Adventure fragment
  */
-public class DashboardAdventureFragment extends Fragment {
+public class DashboardStatementFragment extends android.support.v4.app.Fragment implements FragmentName {
     public static final String ID = "param1";
     public static final String PROGRESS = "param2";
 
-    private String adventureTitle;
-    private String adventureId;
-    private int progress;
-
     private OnFragmentInteractionListener mListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment DashboardAdventureFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DashboardAdventureFragment newInstance(String adventureId, int progress) {
-        DashboardAdventureFragment fragment = new DashboardAdventureFragment();
-        Bundle args = new Bundle();
-        args.putString(ID, adventureId);
-        args.putInt(PROGRESS, progress);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public DashboardAdventureFragment() {
+    public DashboardStatementFragment() {
         // Required empty public constructor
     }
 
@@ -51,9 +29,7 @@ public class DashboardAdventureFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            adventureId = getArguments().getString(ID);
-            adventureTitle = MockDatabase.getInstance().getAdventures().get(adventureId).getTitle();
-            progress = getArguments().getInt(PROGRESS, 0);
+//            adventureId = getArguments().getString(ID);
         }
     }
 
@@ -62,32 +38,10 @@ public class DashboardAdventureFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_dashboard_adventure, container, false);
-//        adventure_button
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.adventure_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //todo fetch adventure data and launch adventure activity
-                Intent intent = new Intent(getActivity(), AdventureActivity.class);
-                intent.putExtra(ID, adventureId);
-                startActivity(intent);
-            }
-        });
-        TextView progressView = (TextView) view.findViewById(R.id.progress);
-        progressView.setText(progress + "% complete");
-        TextView statusView = (TextView) view.findViewById(R.id.dashboard_adventure_status);
-        if (progress == 100) {
-            progressView.setTextColor(getResources().getColor(R.color.green));
-            statusView.setText("Recent adventure");
-        } else {
-            progressView.setTextColor(getResources().getColor(R.color.orange));
-        }
-        TextView titleView = (TextView) view.findViewById(R.id.dashboard_adventure_title);
-        titleView.setText(adventureTitle);
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -127,6 +81,11 @@ public class DashboardAdventureFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+
+    public String getName(){
+        return "Statement";
     }
 
 }

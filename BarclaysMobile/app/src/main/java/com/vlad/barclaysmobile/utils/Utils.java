@@ -10,7 +10,7 @@ import android.widget.ListView;
 import com.vlad.barclaysmobile.adventure.AdventureActivity;
 import com.vlad.barclaysmobile.adventureselection.AdventureSelectionActivity;
 import com.vlad.barclaysmobile.dashboard.DashboardActivity;
-import com.vlad.barclaysmobile.dashboard.DashboardAdventureFragment;
+import com.vlad.barclaysmobile.dashboard.DashboardStatementFragment;
 
 /**
  * Created by Vladislavs on 23/11/2014.
@@ -28,7 +28,7 @@ public class Utils {
                     case 2:
                         //todo fetch adventure data and launch adventure activity
                         Intent intent = new Intent(activity, AdventureActivity.class);
-                        intent.putExtra(DashboardAdventureFragment.ID, UserManager.getInstance().getUser().getCurrentAdventure());
+                        intent.putExtra(DashboardStatementFragment.ID, UserManager.getInstance().getUser().getCurrentAdventure());
                         activity.startActivity(intent);
                         break;
                     case 3:

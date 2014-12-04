@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.vlad.barclaysmobile.R;
 import com.vlad.barclaysmobile.adventure.AdventureActivity;
 import com.vlad.barclaysmobile.adventure.AdventureMenuAdapter;
-import com.vlad.barclaysmobile.dashboard.DashboardAdventureFragment;
+import com.vlad.barclaysmobile.dashboard.DashboardStatementFragment;
 import com.vlad.barclaysmobile.utils.Utils;
 
 public class AdventureSelectionActivity extends Activity {
@@ -69,7 +69,7 @@ public class AdventureSelectionActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //todo fetch adventure data and launch adventure activity
                 Intent intent = new Intent(AdventureSelectionActivity.this, AdventureActivity.class);
-                intent.putExtra(DashboardAdventureFragment.ID, ((AdventureAdapter) parent.getAdapter()).getId(position));
+                intent.putExtra(DashboardStatementFragment.ID, ((AdventureAdapter) parent.getAdapter()).getId(position));
                 startActivity(intent);
             }
         });

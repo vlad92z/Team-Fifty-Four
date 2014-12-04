@@ -54,9 +54,9 @@ public class StartupActivity extends Activity {
         //should contact server and verify and then fetch data, we just mock it here
         if (username.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please enter your username and password!", Toast.LENGTH_SHORT).show();
-        } else if (MockDatabase.getInstance().getUsers().containsKey(username)&&MockDatabase.getInstance().getUsers().get(username).getPassword().equals(password)) {
-            UserManager.getInstance().setUser(MockDatabase.getInstance().getUsers().get(username));
-            UserManager.getInstance().setuId(username);
+        } else if (true){//MockDatabase.getInstance().getUsers().containsKey(username)&&MockDatabase.getInstance().getUsers().get(username).getPassword().equals(password)) {
+            UserManager.getInstance().setUser(MockDatabase.getInstance().getUsers().get("vladz"));
+            UserManager.getInstance().setuId("vladz");
             startActivity(new Intent(StartupActivity.this, DashboardActivity.class));
         } else {
             Toast.makeText(this, "Incorrect password. Please try again!", Toast.LENGTH_SHORT).show();

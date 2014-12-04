@@ -6,7 +6,7 @@
     android:background="@drawable/border"
     android:gravity="center_vertical"
     android:padding="16dp"
-    tools:context="com.vlad.barclaysmobile.dashboard.DashboardAdventureFragment">
+    tools:context="com.vlad.barclaysmobile.dashboard.DashboardStatementFragment">
 
     <LinearLayout
         android:id="@+id/button_container"
