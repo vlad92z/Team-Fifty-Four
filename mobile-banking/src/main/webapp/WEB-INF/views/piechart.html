@@ -8,18 +8,20 @@
 
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+          ['Rent',     25],
+          ['Bills',  11],
+          ['Gym', 2],
+          ['Food',    7],
+          ['Travel',    8],
+          ['Heathcare',    5],
+          ['Enterteinment',      4]
         ]);
 
         var options = {
-			'width': 350,
-               'height': 400,
-               'chartArea': {'width': '90%', 'height': '90%'},
-			   'legend': {'position': 'top',textStyle:{fontSize:'16'}, maxLines:3}
+			'width': window.innerWith,
+            'height': window.innerHeight * 500 / 720, 
+            'chartArea': {'width': '90%', 'height': '80%'},
+			 'legend': {'position': 'top',textStyle:{fontSize:'14'}, maxLines:3}
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -28,7 +30,7 @@
       }
     </script>
   </head>
-  <body>
-    <div id="piechart" style="width: 800px; height: 500px;"></div>
+  <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
+    <div id="piechart" style="width: 100%; height: auto;"></div>
   </body>
 </html>
