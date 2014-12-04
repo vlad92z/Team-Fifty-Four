@@ -103,10 +103,16 @@ function getFloat(key) {
     return !!$_GET[key] ? parseFloat($_GET[key]) : undefined;
 }
 
+function getInt(key) {
+    return !!$_GET[key] ? parseInt($_GET[key], 10) : undefined;
+}
+
 function getDebMean() { return getFloat('debMean'); }
 function getDebVariance() { return getFloat('debVariance'); }
 function getCredMean() { return getFloat('credMean'); }
 function getCredVariance() { return getFloat('credVariance'); }
+function getNSim() { return getInt('sims'); }
+function getNDays() { return getInt('days'); }
 
 //-----------------------------------------------------------
 // display thingies
@@ -122,10 +128,13 @@ function drawChart() {
     var debVariance = getDebVariance() || 100.0;
     var credMean = getCredMean() || 42.0;
     var credVariance = getCredVariance() || 130.0;
+
+    var Nsim  = getNSim() || 100;
+    var Ndays = getNDays() || 30;
     
     // actual debit and credit
-    var debit = monteCarlo(debMean, debVariance, 100, 30);
-    var credit = monteCarlo(credMean, credVariance, 100, 30);
+    var debit = monteCarlo(debMean, debVariance, Nsim, Ndays);
+    var credit = monteCarlo(credMean, credVariance, Nsim, Ndays);
 
     // extracting specfics
     var minDebit = getMinFlow(debit);
@@ -149,7 +158,7 @@ function drawChart() {
     // forming data series
     var days = [];
     var currTime = new Date().getTime();
-    for (var i = (1 - history.length); i < 31; ++i) {
+    for (var i = (1 - history.length); i <= Ndays; ++i) {
         days.push(new Date(currTime + i * 60 * 60 * 24 * 1000));
     }
     var series = transposeTo([], days);
