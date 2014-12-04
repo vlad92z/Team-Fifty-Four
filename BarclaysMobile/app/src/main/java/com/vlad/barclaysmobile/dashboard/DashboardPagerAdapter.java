@@ -13,10 +13,10 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        Fragment fragment = new DashboardStatementFragment();
+        Fragment fragment = new DashboardTransactionFragment();
         Bundle args = new Bundle();
         // Our object is just an integer :-P
-        args.putInt(DashboardStatementFragment.ID, i + 1);
+        args.putInt(DashboardTransactionFragment.ID, i + 1);
         fragment.setArguments(args);
         return fragment;
     }

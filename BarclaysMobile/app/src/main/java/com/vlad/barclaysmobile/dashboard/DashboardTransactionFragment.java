@@ -1,27 +1,29 @@
 package com.vlad.barclaysmobile.dashboard;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.vlad.barclaysmobile.adventure.AdventureActivity;
 import com.vlad.barclaysmobile.R;
+import com.vlad.barclaysmobile.utils.Utils;
 
 /**
  * Adventure fragment
  */
-public class DashboardStatementFragment extends android.support.v4.app.Fragment implements FragmentName {
+public class DashboardTransactionFragment extends android.support.v4.app.Fragment implements FragmentName {
     public static final String ID = "param1";
     public static final String PROGRESS = "param2";
 
     private OnFragmentInteractionListener mListener;
 
-    public DashboardStatementFragment() {
+    public DashboardTransactionFragment() {
         // Required empty public constructor
     }
 
@@ -37,11 +39,22 @@ public class DashboardStatementFragment extends android.support.v4.app.Fragment 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard_adventure, container, false);
+        return inflater.inflate(R.layout.fragment_dashboard_transaction, container, false);
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        WebView webView = (WebView) view.findViewById(R.id.dashboard_balance_graph);
+        webView.loadUrl("https://www.google.co.uk");
+
+        ListView listView = (ListView) getView().findViewById(R.id.statement_transations);
+        listView.setAdapter(new TransactionAdapter(getActivity()));
+
+        Typeface tf = Utils.getBakerTypeface(getActivity());
+        ((TextView) view.findViewById(R.id.date_label)).setTypeface(tf);
+        ((TextView) view.findViewById(R.id.balance_label)).setTypeface(tf);
+        ((TextView) view.findViewById(R.id.description_label)).setTypeface(tf);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

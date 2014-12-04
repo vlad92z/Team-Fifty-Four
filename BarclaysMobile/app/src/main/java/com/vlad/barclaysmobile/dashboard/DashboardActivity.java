@@ -21,7 +21,7 @@ import com.vlad.barclaysmobile.adventure.AdventureMenuAdapter;
 import com.vlad.barclaysmobile.R;
 import com.vlad.barclaysmobile.utils.Utils;
 
-public class DashboardActivity extends FragmentActivity implements DashboardStatementFragment.OnFragmentInteractionListener{
+public class DashboardActivity extends FragmentActivity implements DashboardTransactionFragment.OnFragmentInteractionListener{
 
     // When requested, this adapter returns a DemoObjectFragment,
     // representing an object in the collection.
