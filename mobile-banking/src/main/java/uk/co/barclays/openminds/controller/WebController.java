@@ -30,4 +30,9 @@ public class WebController {
 	public String piechart() {
 		return "piechart";
 	}
+	
+	@RequestMapping(value = "linechart", method = RequestMethod.GET)
+	public String linechart() {
+		return "montecarlo";
+	}
 }
