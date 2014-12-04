@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello WebSocket</title>
+    <script th:src="@{/static/js/sockjs-0.3.4.js}" src="sockjs-0.3.4.js"></script>
+    <script th:src="@{/static/js/stomp.js}" src="stomp.js"></script>
+	<meta charset="utf-8" />
+	<script th:src="@{/webjars/jquery/2.1.1/jquery.min.js}" src="/webjars/jquery/2.1.1/jquery.min.js"></script>
+	<script th:src="@{/webjars/bootstrap/3.2.0/js/bootstrap.min.js}" src="/webjars/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap.min.css}"
+		href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css" />
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap-theme.min.css}"
+		href="/webjars/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
+    <script th:inline="javascript" type="text/javascript">
+        var stompClient = null;
+        
+        function setConnected(connected) {
+            document.getElementById('connect').disabled = connected;
+            document.getElementById('disconnect').disabled = !connected;
+            document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
+            document.getElementById('response').innerHTML = '';
+        }
+        
+        function connect() {
+            var socket = new WebSocket(/*[[@{ws://beaconchat-env.elasticbeanstalk.com:8080/ws}]]*/  '/ws');
+            stompClient = Stomp.over(socket);    
+            stompClient.connect({}, function(frame) {
+                setConnected(true);
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/chatroom/chat.beacon1', function(greeting){
+                    showGreeting(greeting.body);
+                });
+                document.getElementById('name').setAttribute("type", "hidden");
+                document.getElementById('nameLabel').setAttribute("type", "hidden");
+            });
+        }
+        
+        function disconnect() {
+            stompClient.disconnect();
+            setConnected(false);
+            console.log("Disconnected");
+        }
+        
+        function sendName() {
+        	var name = document.getElementById('name').value;
+            var msg = document.getElementById('msg').value;
+            stompClient.send("/websocket/chat.beacon1", {}, name + ': ' + msg);
+        }
+        
+        function showGreeting(message) {
+			console.log(message);
+            var response = document.getElementById('response');
+            var p = document.createElement('p');
+            p.style.wordWrap = 'break-word';
+            p.appendChild(document.createTextNode(message));
+            response.appendChild(p);
+        }
+    </script>
+</head>
+<body>
+<h1>Beacon chat!</h1>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div>
+    <div>
+    	<label id ="nameLabel">Name: </label><input type="text" id="name" />
+        <button id="connect" onclick="connect();">Connect</button>
+        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+    </div>
+    <div id="conversationDiv">
+        <label>Message: </label><input type="text" id="msg" />
+        <button id="sendName" onclick="sendName();">Send</button>
+        <p id="response"></p>
+    </div>
+</div>
+</body>
+</html>
