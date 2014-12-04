@@ -1,0 +1,4 @@
+debit mean:  42.6938848921 , variance:  17676.1175842
+credit mean: 42.7485251799 , variance:  26867.1585896
+monthly debit mean:  1318.76666667 , variance:  2096874.4566
+monthly credit mean: 1320.45444444 , variance:  2121939.70006
