@@ -9,14 +9,13 @@ import org.junit.Test;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-public class StatementTest {
+public class BankAccountTest {
 
 	@Test
-	public void test() throws JsonParseException, JsonMappingException, IOException {
-		Statement statement = Statement.getInstance();
-		for (Transaction t : statement.getTransactions()){
-			System.out.println(t);
-		}
+	public void test() throws JsonParseException, JsonMappingException,
+			IOException {
+		BankAccount bankAccount = BankAccount.getInstance();
+		System.out.println(bankAccount);
 	}
 
 }
