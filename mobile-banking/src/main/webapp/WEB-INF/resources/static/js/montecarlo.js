@@ -184,8 +184,8 @@ function drawChart() {
                    },
                    'lineWidth': 3,
                    'vAxis'  : { 'title': 'Balance, GBP' },
-                   'width'  : 720,
-                   'height' : 500};
+                   'width': window.innerWith,
+                   'height': window.innerHeight * 1 /2, };
 
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.LineChart(document.getElementById('chart-div'));

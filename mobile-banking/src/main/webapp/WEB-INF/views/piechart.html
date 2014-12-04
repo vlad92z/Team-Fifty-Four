@@ -18,8 +18,8 @@
         ]);
 
         var options = {
-			'width': 720,
-            'height': 500,
+			'width': window.innerWith,
+            'height': window.innerHeight * 500 / 720, 
             'chartArea': {'width': '90%', 'height': '80%'},
 			 'legend': {'position': 'top',textStyle:{fontSize:'14'}, maxLines:3}
         };
@@ -31,6 +31,6 @@
     </script>
   </head>
   <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
-    <div id="piechart" style="width: 720px; height: 500px;"></div>
+    <div id="piechart" style="width: 100%; height: auto;"></div>
   </body>
 </html>
