@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.vlad.barclaysmobile.adventure.AdventureMenuAdapter;
+import com.vlad.barclaysmobile.adventure.MenuAdapter;
 import com.vlad.barclaysmobile.R;
 import com.vlad.barclaysmobile.utils.Utils;
 
@@ -74,7 +74,7 @@ public class DashboardActivity extends FragmentActivity implements DashboardTran
         mDrawerList = (ListView) findViewById(R.id.dashboard_left_drawer);
 
         // Set the adapter for the list view
-        mDrawerList.setAdapter(new AdventureMenuAdapter());
+        mDrawerList.setAdapter(new MenuAdapter(this));
         // Set the list's click listener
         Utils.setMenuListener(mDrawerList, this);
 

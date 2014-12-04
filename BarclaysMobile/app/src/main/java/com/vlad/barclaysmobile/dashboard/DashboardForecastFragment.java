@@ -3,7 +3,6 @@ package com.vlad.barclaysmobile.dashboard;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +14,14 @@ import com.vlad.barclaysmobile.R;
 import com.vlad.barclaysmobile.utils.Utils;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link android.app.Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DashboardTransactionFragment.OnFragmentInteractionListener} interface
+ * {@link com.vlad.barclaysmobile.dashboard.DashboardTransactionFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DashboardCategoryFragment#newInstance} factory method to
+ * Use the {@link com.vlad.barclaysmobile.dashboard.DashboardForecastFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DashboardCategoryFragment extends android.support.v4.app.Fragment implements FragmentName {
+public class DashboardForecastFragment extends android.support.v4.app.Fragment implements FragmentName {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String USER_ID = "param1";
@@ -42,15 +41,15 @@ public class DashboardCategoryFragment extends android.support.v4.app.Fragment i
      * @return A new instance of fragment DashboardRecommendFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DashboardCategoryFragment newInstance(String uId) {
-        DashboardCategoryFragment fragment = new DashboardCategoryFragment();
+    public static DashboardForecastFragment newInstance(String uId) {
+        DashboardForecastFragment fragment = new DashboardForecastFragment();
         Bundle args = new Bundle();
 //        args.putString(USER_ID, uId);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public DashboardCategoryFragment() {
+    public DashboardForecastFragment() {
         // Required empty public constructor
     }
 
@@ -75,13 +74,12 @@ public class DashboardCategoryFragment extends android.support.v4.app.Fragment i
         super.onViewCreated(view, savedInstanceState);
         // initialise your views
         WebView webView = (WebView) view.findViewById(R.id.pie_chart_webview);
-
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAllowFileAccessFromFileURLs(true);
         webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
-        webView.loadUrl("http://mobilebanking.elasticbeanstalk.com/piechart");
+        webView.loadUrl("http://mobilebanking.elasticbeanstalk.com/linechart");
 
         ((TextView) view.findViewById(R.id.pie_chart_more_button)).setTypeface(Utils.getBakerTypeface(getActivity()));
 
@@ -113,7 +111,7 @@ public class DashboardCategoryFragment extends android.support.v4.app.Fragment i
 
     @Override
     public String getName() {
-        return "Expenses";
+        return "Forecast";
     }
 
     /**

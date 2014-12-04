@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vlad.barclaysmobile.R;
-import com.vlad.barclaysmobile.adventure.AdventureMenuAdapter;
+import com.vlad.barclaysmobile.adventure.MenuAdapter;
 import com.vlad.barclaysmobile.classes.Landmark;
 import com.vlad.barclaysmobile.utils.MockDatabase;
 import com.vlad.barclaysmobile.utils.Utils;
@@ -75,7 +75,7 @@ public class ObjectActivity extends FragmentActivity implements ObjectAvhievemen
         mDrawerList = (ListView) findViewById(R.id.object_left_drawer);
 
         // Set the adapter for the list view
-        mDrawerList.setAdapter(new AdventureMenuAdapter());
+        mDrawerList.setAdapter(new MenuAdapter(this));
         // Set the list's click listener
         Utils.setMenuListener(mDrawerList, this);
 

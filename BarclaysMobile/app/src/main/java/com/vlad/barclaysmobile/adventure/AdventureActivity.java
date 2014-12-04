@@ -69,7 +69,7 @@ public class AdventureActivity extends Activity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
        mDrawerList = (ListView) findViewById(R.id.left_drawer);
         // Set the adapter for the list view
-        mDrawerList.setAdapter(new AdventureMenuAdapter());
+        mDrawerList.setAdapter(new MenuAdapter(this));
         // Set the list's click listener
         Utils.setMenuListener(mDrawerList, this);
 
