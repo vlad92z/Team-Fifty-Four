@@ -45,8 +45,6 @@ public class DashboardTransactionFragment extends android.support.v4.app.Fragmen
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        WebView webView = (WebView) view.findViewById(R.id.dashboard_balance_graph);
-        webView.loadUrl("https://www.google.co.uk");
 
         ListView listView = (ListView) getView().findViewById(R.id.statement_transations);
         listView.setAdapter(new TransactionAdapter(getActivity()));

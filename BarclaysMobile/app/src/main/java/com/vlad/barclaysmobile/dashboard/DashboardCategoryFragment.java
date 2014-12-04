@@ -1,14 +1,13 @@
 package com.vlad.barclaysmobile.dashboard;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.webkit.WebView;
 import android.widget.GridView;
 
 import com.vlad.barclaysmobile.R;
@@ -18,10 +17,10 @@ import com.vlad.barclaysmobile.R;
  * Activities that contain this fragment must implement the
  * {@link DashboardTransactionFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DashboardRecommendFragment#newInstance} factory method to
+ * Use the {@link DashboardCategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DashboardRecommendFragment extends Fragment {
+public class DashboardCategoryFragment extends android.support.v4.app.Fragment implements FragmentName {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String USER_ID = "param1";
@@ -41,62 +40,41 @@ public class DashboardRecommendFragment extends Fragment {
      * @return A new instance of fragment DashboardRecommendFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DashboardRecommendFragment newInstance(String uId) {
-        DashboardRecommendFragment fragment = new DashboardRecommendFragment();
+    public static DashboardCategoryFragment newInstance(String uId) {
+        DashboardCategoryFragment fragment = new DashboardCategoryFragment();
         Bundle args = new Bundle();
-        args.putString(USER_ID, uId);
+//        args.putString(USER_ID, uId);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public DashboardRecommendFragment() {
+    public DashboardCategoryFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            userId = getArguments().getString(USER_ID);
-        }
+//        if (getArguments() != null) {
+//            userId = getArguments().getString(USER_ID);
+//        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard_recommend, container, false);
+        return inflater.inflate(R.layout.fragment_dashboard_category, container, false);
 
 
     }
 
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // initialise your views
-        recommendations = (GridView) view.findViewById(R.id.recommend);
-        recommendations.setAdapter(new DashboardRecommendAdapter(userId));
-        recommendations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String recommendation = (String) parent.getAdapter().getItem(position);
-                //todo do something with the string and launch recommendations activity
-                //https://foursquare.com/explore?mode=url&near=Glasgow&q=Food
-                String url2 = "https://foursquare.com/explore?mode=url&near=Glasgow&q={recommend}"
-                        .replace("{recommend}", recommendation);
-                Intent help2 = new Intent(Intent.ACTION_VIEW);
-                help2.setData(Uri.parse(url2));
-                getActivity().startActivity(help2);
-            }
-        });
-        getView().findViewById(R.id.recommend_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url2 = "https://foursquare.com/explore?mode=url&near=Glasgow&q";
-                Intent help2 = new Intent(Intent.ACTION_VIEW);
-                help2.setData(Uri.parse(url2));
-                getActivity().startActivity(help2);
-            }
-        });
+        WebView webView = (WebView) view.findViewById(R.id.pie_chart_webview);
+        webView.loadUrl("http://mobilebanking.elasticbeanstalk.com/piechart");
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -121,6 +99,11 @@ public class DashboardRecommendFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public String getName() {
+        return "Expenses";
     }
 
     /**

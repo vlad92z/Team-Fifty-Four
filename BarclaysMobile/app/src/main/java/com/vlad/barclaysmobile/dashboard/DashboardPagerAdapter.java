@@ -13,7 +13,22 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        Fragment fragment = new DashboardTransactionFragment();
+        Fragment fragment;
+        switch (i) {
+            case 0:
+                
+                fragment = new DashboardTransactionFragment();
+                break;
+            case 1:
+                fragment = new DashboardCategoryFragment();
+                break;
+            case 2:
+                fragment = new DashboardTransactionFragment();
+                break;
+            default:
+                fragment = new DashboardTransactionFragment();
+                break;
+        }
         Bundle args = new Bundle();
         // Our object is just an integer :-P
         args.putInt(DashboardTransactionFragment.ID, i + 1);
