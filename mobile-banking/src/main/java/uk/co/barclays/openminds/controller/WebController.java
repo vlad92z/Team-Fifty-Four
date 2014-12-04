@@ -26,8 +26,8 @@ public class WebController {
 		return "index";
 	}
 
-	@RequestMapping(value = "chat", method = RequestMethod.GET)
-	public String chat() {
-		return "chat";
+	@RequestMapping(value = "piechart", method = RequestMethod.GET)
+	public String piechart() {
+		return "piechart";
 	}
 }
