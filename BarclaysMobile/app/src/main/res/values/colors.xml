@@ -15,7 +15,7 @@
     <item name="gray" type="color">#FFa0a0a0</item>
     <!--City theme-->
     <item name="barclays_blue" type="color">#FF01AFEF</item>
-    <item name="barclays_green" type="color">#FF007E66</item>
+    <item name="barclays_background_blue" type="color">#FF007EB6</item>
     <item name="barclays_darkblue" type="color">#FF00395D</item>
     <item name="city_purple" type="color">#FFB925E8</item>
     <item name="city_blue" type="color">#FF288DFF</item>

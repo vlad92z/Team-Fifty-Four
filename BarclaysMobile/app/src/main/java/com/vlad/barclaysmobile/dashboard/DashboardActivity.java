@@ -1,15 +1,15 @@
 package com.vlad.barclaysmobile.dashboard;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.PagerTitleStrip;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -17,24 +17,16 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.vlad.barclaysmobile.adventure.AdventureMenuAdapter;
 import com.vlad.barclaysmobile.R;
-import com.vlad.barclaysmobile.utils.UserManager;
 import com.vlad.barclaysmobile.utils.Utils;
 
-public class DashboardActivity extends Activity implements DashboardAdventureFragment.OnFragmentInteractionListener{
+public class DashboardActivity extends FragmentActivity implements DashboardTransactionFragment.OnFragmentInteractionListener{
 
+    // When requested, this adapter returns a DemoObjectFragment,
+    // representing an object in the collection.
+    DashboardPagerAdapter dashboardAdapter;
+    ViewPager dashboardPager;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -44,12 +36,16 @@ public class DashboardActivity extends Activity implements DashboardAdventureFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        if (savedInstanceState == null) {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.add(R.id.adventure_container, DashboardAdventureFragment.newInstance(UserManager.getInstance().getUser().getCurrentAdventure(), 0));
-            transaction.add(R.id.recommend_container, new DashboardRecommendFragment());
-            transaction.commit();
-        }
+        //todo setup fragments
+        // ViewPager and its adapters use support library
+        // fragments, so use getSupportFragmentManager.
+        dashboardAdapter =
+                new DashboardPagerAdapter(
+                        getSupportFragmentManager());
+        dashboardPager = (ViewPager) findViewById(R.id.dashboard_pager);
+        dashboardPager.setAdapter(dashboardAdapter);
+
+
 
         setupActionBar();
 
@@ -82,6 +78,9 @@ public class DashboardActivity extends Activity implements DashboardAdventureFra
         // Set the list's click listener
         Utils.setMenuListener(mDrawerList, this);
 
+
+        //app code
+        setBalance();
 
 
     }
@@ -131,5 +130,31 @@ public class DashboardActivity extends Activity implements DashboardAdventureFra
 
         ab.setDisplayHomeAsUpEnabled(false);
         ab.setHomeButtonEnabled(true);
+    }
+
+    private void setBalance(){
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Baker.ttf");
+        TextView title = (TextView) findViewById(R.id.dahsboard_current_account_label);
+        TextView number = (TextView) findViewById(R.id.dashboard_account_number);
+        TextView balance = (TextView) findViewById(R.id.dashboard_balance);
+        TextView overdraft = (TextView) findViewById(R.id.dashboard_overdraft_limit);
+        TextView budget = (TextView) findViewById(R.id.dashboard_remaining_budget);
+        title.setTypeface(tf);
+        number.setTypeface(tf);
+        balance.setTypeface(tf);
+        overdraft.setTypeface(tf);
+        budget.setTypeface(tf);
+        PagerTitleStrip titleStrip = (PagerTitleStrip) findViewById(R.id.pager_title_strip);
+        for (int counter = 0 ; counter<titleStrip.getChildCount(); counter++) {
+
+            if (titleStrip.getChildAt(counter) instanceof TextView) {
+                ((TextView) titleStrip.getChildAt(counter)).setTypeface(tf);
+                ((TextView)titleStrip.getChildAt(counter)).setTextSize(25);
+            }
+        }
+        number.setText("00-00-00 | 8348425");
+        balance.setText("Balance: £500.89");
+        overdraft.setText("Overdraft Limit: £200");
+        budget.setText("Remaining Budget: £301.52");
     }
 }

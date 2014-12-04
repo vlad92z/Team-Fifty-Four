@@ -25,7 +25,7 @@ public class WebController {
 		model.addAttribute("title", "Beacon chat");
 		return "index";
 	}
-	
+
 	@RequestMapping(value = "chat", method = RequestMethod.GET)
 	public String chat() {
 		return "chat";

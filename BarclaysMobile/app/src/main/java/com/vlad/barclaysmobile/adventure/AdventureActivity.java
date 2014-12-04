@@ -26,7 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.vlad.barclaysmobile.R;
 import com.vlad.barclaysmobile.classes.Adventure;
 import com.vlad.barclaysmobile.classes.Landmark;
-import com.vlad.barclaysmobile.dashboard.DashboardAdventureFragment;
+import com.vlad.barclaysmobile.dashboard.DashboardTransactionFragment;
 import com.vlad.barclaysmobile.object.ObjectActivity;
 import com.vlad.barclaysmobile.utils.MockDatabase;
 import com.vlad.barclaysmobile.utils.UserManager;
@@ -74,7 +74,7 @@ public class AdventureActivity extends Activity {
         Utils.setMenuListener(mDrawerList, this);
 
         /** initializing the actual adventure activity views*/
-        if (!setAdventure(getIntent().getStringExtra(DashboardAdventureFragment.ID)))
+        if (!setAdventure(getIntent().getStringExtra(DashboardTransactionFragment.ID)))
             finish();
         ListView adventureSteps = (ListView) findViewById(R.id.directions_list);
         adventureSteps.setAdapter(new AdventureStepsAdapter(adventure.getRoute(), progress, AdventureActivity.this));
@@ -130,10 +130,10 @@ public class AdventureActivity extends Activity {
         TextView titleTV = (TextView) v.findViewById(R.id.title);
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Pacifico.ttf");
         titleTV.setTypeface(tf);
-        if (!UserManager.getInstance().getUser().getAdventures().contains(getIntent().getStringExtra(DashboardAdventureFragment.ID))){
-            TextView join = (TextView) v.findViewById(R.id.join_adventure_button);
-            join.setVisibility(View.VISIBLE);
-            join.setTypeface(tf);
+        if (!UserManager.getInstance().getUser().getAdventures().contains(getIntent().getStringExtra(DashboardTransactionFragment.ID))){
+            //TextView join = (TextView) v.findViewById(R.id.join_adventure_button);
+            //join.setVisibility(View.VISIBLE);
+            //join.setTypeface(tf);
         }
 
         ab.setCustomView(v);

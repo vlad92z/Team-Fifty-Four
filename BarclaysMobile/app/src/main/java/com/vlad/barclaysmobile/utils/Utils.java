@@ -2,6 +2,7 @@ package com.vlad.barclaysmobile.utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,12 +11,16 @@ import android.widget.ListView;
 import com.vlad.barclaysmobile.adventure.AdventureActivity;
 import com.vlad.barclaysmobile.adventureselection.AdventureSelectionActivity;
 import com.vlad.barclaysmobile.dashboard.DashboardActivity;
-import com.vlad.barclaysmobile.dashboard.DashboardAdventureFragment;
+import com.vlad.barclaysmobile.dashboard.DashboardTransactionFragment;
 
 /**
  * Created by Vladislavs on 23/11/2014.
  */
 public class Utils {
+
+    public static Typeface getBakerTypeface(Activity activity){
+        return Typeface.createFromAsset(activity.getAssets(), "fonts/Baker.ttf");
+    }
 
     public static void setMenuListener(ListView menu, final Activity activity){
         menu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -28,7 +33,7 @@ public class Utils {
                     case 2:
                         //todo fetch adventure data and launch adventure activity
                         Intent intent = new Intent(activity, AdventureActivity.class);
-                        intent.putExtra(DashboardAdventureFragment.ID, UserManager.getInstance().getUser().getCurrentAdventure());
+                        intent.putExtra(DashboardTransactionFragment.ID, UserManager.getInstance().getUser().getCurrentAdventure());
                         activity.startActivity(intent);
                         break;
                     case 3:

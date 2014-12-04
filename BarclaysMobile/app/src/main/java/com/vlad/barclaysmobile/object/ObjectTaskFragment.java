@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.vlad.barclaysmobile.R;
 import com.vlad.barclaysmobile.classes.Task;
-import com.vlad.barclaysmobile.dashboard.ObjectTaskAdapter;
+import com.vlad.barclaysmobile.dashboard.TransactionAdapter;
 import com.vlad.barclaysmobile.utils.MockDatabase;
 import com.vlad.barclaysmobile.utils.UserManager;
 
@@ -37,7 +37,7 @@ public class ObjectTaskFragment extends Fragment {
     private String landmarkId;
     public AlertDialog dialog;
     private ListView taskList;
-    private ObjectTaskAdapter adapter;
+    private TransactionAdapter adapter;
 
     private ObjectAvhievementFragment.OnObjectFragmentInteractionListener mListener;
 
@@ -111,7 +111,7 @@ public class ObjectTaskFragment extends Fragment {
     private void populateViews(final String landmarkId) {
         //todo get achievements from database
         taskList = (ListView) getView().findViewById(R.id.task_list);
-        adapter = new ObjectTaskAdapter(MockDatabase.getInstance().getLandmarks().get(landmarkId).getTasks(), UserManager.getInstance().getuId(), getActivity(), false);
+        //adapter = new TransactionAdapter(MockDatabase.getInstance().getLandmarks().get(landmarkId).getTasks(), UserManager.getInstance().getuId(), getActivity(), false);
         taskList.setAdapter(adapter);
         taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -119,37 +119,10 @@ public class ObjectTaskFragment extends Fragment {
                 doTask((String) parent.getAdapter().getItem(position), adapter);
             }
         });
-        getView().findViewById(R.id.see_all_tasks_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                alert.setTitle("Tasks");
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-                final View convertView = inflater.inflate(R.layout.dialog_tasks, null);
-                ListView tasks = (ListView) convertView.findViewById(R.id.tasks_popup_list);
 
-                alert.setView(convertView);
-                final ObjectTaskAdapter adapt = new ObjectTaskAdapter(MockDatabase.getInstance().getLandmarks().get(landmarkId).getTasks(), UserManager.getInstance().getuId(), getActivity(), true);
-                tasks.setAdapter(adapt);
-                tasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        doTask((String) parent.getAdapter().getItem(position), adapt);
-                    }
-                });
-
-                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog = alert.show();
-            }
-        });
     }
 
-    public void doTask(String taskId, ObjectTaskAdapter adapt) {
+    public void doTask(String taskId, TransactionAdapter adapt) {
         Task task = MockDatabase.getInstance().getTasks().get(taskId);
         if (task.getType() == Task.TaskType.QUESTION) {
             askQuestion((Task.QuestionTask) task, taskId, adapt);
@@ -162,7 +135,7 @@ public class ObjectTaskFragment extends Fragment {
     }
 
 
-    public void askQuestion(final Task.QuestionTask question, final String taskId, final ObjectTaskAdapter adapt) {
+    public void askQuestion(final Task.QuestionTask question, final String taskId, final TransactionAdapter adapt) {
         final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
         alert.setTitle("Do you know the answer?");
         LayoutInflater inflater = getActivity().getLayoutInflater();

@@ -35,7 +35,7 @@ public class Config extends WebMvcConfigurerAdapter {
 		}
 
 	}
-	
+
 	@Override
 	public void configureDefaultServletHandling(
 			DefaultServletHandlerConfigurer configurer) {

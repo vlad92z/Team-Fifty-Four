@@ -16,7 +16,7 @@ import com.vlad.barclaysmobile.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DashboardAdventureFragment.OnFragmentInteractionListener} interface
+ * {@link DashboardTransactionFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link DashboardRecommendFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -29,7 +29,7 @@ public class DashboardRecommendFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String userId;
 
-    private DashboardAdventureFragment.OnFragmentInteractionListener mListener;
+    private DashboardTransactionFragment.OnFragmentInteractionListener mListener;
 
     private GridView recommendations;
 
@@ -110,7 +110,7 @@ public class DashboardRecommendFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (DashboardAdventureFragment.OnFragmentInteractionListener) activity;
+            mListener = (DashboardTransactionFragment.OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");

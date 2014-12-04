@@ -1,0 +1,35 @@
+﻿<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+		   var data = google.visualization.arrayToDataTable(
+		   [
+         ['name', 'value', { role: 'annotation' } ],
+         ['Copper', 111, 'Cu' ],
+         ['Silver', 150,'Ag' ],
+         ['Gold', 200, 'Au' ],
+         ['Platinum', 175, 'Pt' ]
+		  ]);
+		  
+
+
+        var options = {
+			//isStacked: true,
+			legend: { position: "bottom" },
+			colors: ['#00395d','#007eb6', '#ffffff', '#01afef'],
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+		
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
