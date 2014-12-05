@@ -1,6 +1,8 @@
 package com.vlad.barclaysmobile.dashboard;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +26,7 @@ public class DashboardTransactionFragment extends android.support.v4.app.Fragmen
     public static final String PROGRESS = "param2";
 
     private OnFragmentInteractionListener mListener;
+    private int month;
 
     public DashboardTransactionFragment() {
         // Required empty public constructor
@@ -31,7 +36,7 @@ public class DashboardTransactionFragment extends android.support.v4.app.Fragmen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-//            adventureId = getArguments().getString(ID);
+            month = getArguments().getInt("month");
         }
     }
 
@@ -47,7 +52,13 @@ public class DashboardTransactionFragment extends android.support.v4.app.Fragmen
 
 
         ListView listView = (ListView) getView().findViewById(R.id.statement_transations);
-        listView.setAdapter(new TransactionAdapter(getActivity()));
+        listView.setAdapter(new TransactionAdapter(getActivity(), month));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                doalert();
+            }
+        });
 
         Typeface tf = Utils.getBakerTypeface(getActivity());
         ((TextView) view.findViewById(R.id.date_label)).setTypeface(tf);
@@ -97,6 +108,64 @@ public class DashboardTransactionFragment extends android.support.v4.app.Fragmen
 
     public String getName(){
         return "Statement";
+    }
+
+    public void doalert(){
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(
+                getActivity());
+        builderSingle.setIcon(R.drawable.ic_launcher);
+        builderSingle.setTitle("Choose a category:-");
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.select_dialog_singlechoice);
+        arrayAdapter.add("Groceries");
+        arrayAdapter.add("Utilities");
+        arrayAdapter.add("Fuel");
+        arrayAdapter.add("Entertainment");
+        arrayAdapter.add("Clothing");
+        builderSingle.setNegativeButton("cancel",
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builderSingle.setAdapter(arrayAdapter,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String strName = arrayAdapter.getItem(which);
+                        AlertDialog.Builder builderInner = new AlertDialog.Builder(
+                                getActivity());
+                        builderInner.setMessage(strName);
+                        builderInner.setTitle("Your Selected Item is");
+                        builderInner.setPositiveButton("All",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(
+                                            DialogInterface dialog,
+                                            int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builderInner.setNegativeButton("Just this",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(
+                                            DialogInterface dialog,
+                                            int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builderInner.show();
+                    }
+                });
+        builderSingle.show();
     }
 
 }

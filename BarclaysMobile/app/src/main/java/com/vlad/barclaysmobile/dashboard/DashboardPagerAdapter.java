@@ -18,6 +18,7 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
 
                 fragment = new DashboardTransactionFragment();
+
                 break;
             case 1:
                 fragment = new DashboardCategoryFragment();
@@ -31,7 +32,7 @@ public class DashboardPagerAdapter extends FragmentStatePagerAdapter {
         }
         Bundle args = new Bundle();
         // Our object is just an integer :-P
-        args.putInt(DashboardTransactionFragment.ID, i + 1);
+        args.putInt("month", i + 1);
         fragment.setArguments(args);
         return fragment;
     }

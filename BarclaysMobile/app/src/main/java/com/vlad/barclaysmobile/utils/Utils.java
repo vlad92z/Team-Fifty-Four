@@ -45,13 +45,7 @@ public class Utils {
                         help2.setData(Uri.parse(url2));
                         activity.startActivity(help2);
                         break;
-                    case 5:
-                        String url = "http://allyjweir.github.io/city-adventure/help";
-                        Intent help = new Intent(Intent.ACTION_VIEW);
-                        help.setData(Uri.parse(url));
-                        activity.startActivity(help);
-                        break;
-                    case 6:
+                    case 8:
                         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                                 "mailto", "zaharovs92v@gmail.com", null));
                         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "City Adventure Android");

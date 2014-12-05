@@ -21,7 +21,7 @@ public class TransactionPagerAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = new TransactionFragment();
         Bundle args = new Bundle();
         // Our object is just an integer :-P
-        args.putInt(DashboardTransactionFragment.ID, i + 1);
+        args.putInt("month", i + 1);
         fragment.setArguments(args);
         return fragment;
     }

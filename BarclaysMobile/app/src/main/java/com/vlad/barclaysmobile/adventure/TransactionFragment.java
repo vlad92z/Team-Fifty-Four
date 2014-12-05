@@ -1,12 +1,16 @@
 package com.vlad.barclaysmobile.adventure;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +28,7 @@ public class TransactionFragment extends android.support.v4.app.Fragment{
 
     private DashboardTransactionFragment.OnFragmentInteractionListener mListener;
     private String name;
+    private int month;
 
     public TransactionFragment() {
         // Required empty public constructor
@@ -33,7 +38,7 @@ public class TransactionFragment extends android.support.v4.app.Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            name = getArguments().getString(ID);
+            month = getArguments().getInt("month");
         }
     }
 
@@ -49,7 +54,13 @@ public class TransactionFragment extends android.support.v4.app.Fragment{
 
 
         ListView listView = (ListView) getView().findViewById(R.id.statement_transations);
-        listView.setAdapter(new TransactionAdapter(getActivity()));
+        listView.setAdapter(new TransactionAdapter(getActivity(), month));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                doalert();
+            }
+        });
 
         Typeface tf = Utils.getBakerTypeface(getActivity());
         ((TextView) view.findViewById(R.id.date_label)).setTypeface(tf);
@@ -94,6 +105,64 @@ public class TransactionFragment extends android.support.v4.app.Fragment{
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    public void doalert(){
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(
+                getActivity());
+        builderSingle.setIcon(R.drawable.ic_launcher);
+        builderSingle.setTitle("Choose a category:-");
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.select_dialog_singlechoice);
+        arrayAdapter.add("Groceries");
+        arrayAdapter.add("Utilities");
+        arrayAdapter.add("Fuel");
+        arrayAdapter.add("Entertainment");
+        arrayAdapter.add("Clothing");
+        builderSingle.setNegativeButton("cancel",
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builderSingle.setAdapter(arrayAdapter,
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String strName = arrayAdapter.getItem(which);
+                        AlertDialog.Builder builderInner = new AlertDialog.Builder(
+                                getActivity());
+                        builderInner.setMessage(strName);
+                        builderInner.setTitle("Your Selected Item is");
+                        builderInner.setPositiveButton("All",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(
+                                            DialogInterface dialog,
+                                            int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builderInner.setNegativeButton("Just this",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(
+                                            DialogInterface dialog,
+                                            int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        builderInner.show();
+                    }
+                });
+        builderSingle.show();
     }
 
 
