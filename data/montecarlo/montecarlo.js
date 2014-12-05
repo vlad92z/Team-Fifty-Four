@@ -184,18 +184,18 @@ function drawChart() {
         'title'  : chartName,
         'legend' : { 
             'position': 'bottom',
-            'textStyle': { 'fontSize': 32 },
+            'textStyle': { 'fontSize': 16 },
         },
         'series' : {
             1: { 'color': '#01afef' },
             2: { 'color': '#007eb6' },
             3: { 'color': '#00395d' },
         },
-        'lineWidth' : 9,
+        'lineWidth' : 3,
         'vAxis'  : { 'title': 'Balance, GBP' },
-        'width'  : 1300,
-        'height' : 1000,
-        'fontSize'  : 36,
+        'width'  : 800,
+        'height' : 800,
+        'fontSize'  : 28,
     };
 
     // Instantiate and draw our chart, passing in some options.

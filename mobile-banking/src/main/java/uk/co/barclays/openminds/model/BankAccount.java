@@ -66,7 +66,7 @@ public class BankAccount {
 		if (account == null) {
 			account = new BankAccount("Current Account", "98765432",
 					"12-34-56", "GB55BARC12345698765432", "BARCGB22", Statement
-							.getInstance().getTransactions(), new Double(
+							.readInstance("../../../../../convertcsv.json").getTransactions(), new Double(
 							1465.23), new Double(1442.99), new Double(22.24),
 					"£", new ArrayList<Card>(), new ArrayList<StandingOrder>(),
 					new AccountHolder("John", "Doe"));

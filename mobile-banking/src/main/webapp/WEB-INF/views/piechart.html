@@ -1,34 +1,31 @@
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
   <head>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
 
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Rent',     25],
-          ['Bills',  11],
-          ['Gym', 2],
-          ['Food',    7],
-          ['Travel',    8],
-          ['Heathcare',    5],
-          ['Enterteinment',      4]
-        ]);
+        var data = google.visualization.arrayToDataTable(/*[[${data}]]*/ null);
 
         var options = {
-			'width': window.innerWith,
-            'height': window.innerHeight * 500 / 720, 
-            'chartArea': {'width': '90%', 'height': '80%'},
-			 'legend': {'position': 'top',textStyle:{fontSize:'14'}, maxLines:3}
+			'width': '800',
+            'height': '800', 
+           	'chartArea': {'width': '100%', 'height': '80%'},
+			'legend': {'position': 'top', 'textStyle': {'fontSize': '32'}, 'maxLines': '3'},
+            'fontSize': '36'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
         chart.draw(data, options);
       }
+      /*]]>*/
     </script>
+    <style type="text/css">#piechart > div {margin: 0 auto;}</style>
   </head>
   <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
     <div id="piechart" style="width: 100%; height: auto;"></div>
