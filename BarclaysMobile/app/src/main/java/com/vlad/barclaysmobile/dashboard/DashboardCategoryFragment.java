@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -75,6 +76,13 @@ public class DashboardCategoryFragment extends android.support.v4.app.Fragment i
         super.onViewCreated(view, savedInstanceState);
         // initialise your views
         WebView webView = (WebView) view.findViewById(R.id.pie_chart_webview);
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                getView().findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+            }
+        });
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAllowFileAccessFromFileURLs(true);

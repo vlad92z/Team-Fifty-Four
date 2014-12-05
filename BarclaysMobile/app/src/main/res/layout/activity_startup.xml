@@ -13,14 +13,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center">
-        <TextView
+        <ImageView
             android:textColor="@color/barclays_darkblue"
             android:id="@+id/startup_label"
-            android:text="Barclays"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="40sp"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/barclays_main"/>
         <EditText
             android:layout_width="300dp"
             android:layout_height="wrap_content"

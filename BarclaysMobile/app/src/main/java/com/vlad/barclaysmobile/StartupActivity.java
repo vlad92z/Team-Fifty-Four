@@ -43,8 +43,8 @@ public class StartupActivity extends Activity {
         });
 
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Baker.ttf");//gets the font ttf file from assets
-        TextView title = (TextView) findViewById(R.id.startup_label);
-        title.setTypeface(tf);//sets the font for these views
+//        TextView title = (TextView) findViewById(R.id.startup_label);
+//        title.setTypeface(tf);//sets the font for these views
         login.setTypeface(tf);
         user.setTypeface(tf);
         password.setTypeface(tf);
