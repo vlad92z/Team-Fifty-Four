@@ -15,16 +15,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.vlad.barclaysmobile.R;
 import com.vlad.barclaysmobile.adventure.TransactionActivity;
 import com.vlad.barclaysmobile.adventure.MenuAdapter;
@@ -121,35 +111,6 @@ public class ChartActivity extends Activity {
 
         //ab.setDisplayHomeAsUpEnabled(false);
         ab.setHomeButtonEnabled(true);
-    }
-
-    public void connect() throws JSONException {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://beaconchat-env.elasticbeanstalk.com/connect";
-
-        JSONObject postdata = new JSONObject();
-
-
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.POST, url, postdata, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        //mTxtDisplay.setText("Response: " + response.toString());
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-                        String s;
-                        s = "";
-                    }
-                });
-// Add the request to the RequestQueue.
-        queue.add(jsObjRequest);
-
     }
 
 }
