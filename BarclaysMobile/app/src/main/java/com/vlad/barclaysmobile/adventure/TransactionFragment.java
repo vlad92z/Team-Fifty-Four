@@ -128,6 +128,13 @@ public class TransactionFragment extends android.support.v4.app.Fragment{
                         dialog.dismiss();
                     }
                 });
+        builderSingle.setPositiveButton("new",
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
 
         builderSingle.setAdapter(arrayAdapter,
                 new DialogInterface.OnClickListener() {

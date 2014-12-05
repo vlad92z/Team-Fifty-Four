@@ -131,6 +131,13 @@ public class DashboardTransactionFragment extends android.support.v4.app.Fragmen
                         dialog.dismiss();
                     }
                 });
+        builderSingle.setPositiveButton("new",
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
 
         builderSingle.setAdapter(arrayAdapter,
                 new DialogInterface.OnClickListener() {
