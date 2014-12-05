@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.vlad.barclaysmobile.adventure.TransactionActivity;
-import com.vlad.barclaysmobile.adventureselection.AdventureSelectionActivity;
 import com.vlad.barclaysmobile.dashboard.DashboardActivity;
 import com.vlad.barclaysmobile.dashboard.DashboardTransactionFragment;
 
