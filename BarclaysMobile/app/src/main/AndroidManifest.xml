@@ -57,7 +57,7 @@
             android:value="AIzaSyB3bm84-ZCz-9h2oSHAkh8g1DexbpxEKDk" />
 
         <activity
-            android:name="com.vlad.barclaysmobile.adventureselection.AdventureSelectionActivity"
+            android:name=".adventureselection.ChartActivity"
             android:label="@string/title_activity_adventure_selection" >
         </activity>
     </application>

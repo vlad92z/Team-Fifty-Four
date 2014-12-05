@@ -16,13 +16,27 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.vlad.barclaysmobile.R;
 import com.vlad.barclaysmobile.adventure.TransactionActivity;
 import com.vlad.barclaysmobile.adventure.MenuAdapter;
 import com.vlad.barclaysmobile.dashboard.DashboardTransactionFragment;
 import com.vlad.barclaysmobile.utils.Utils;
 
-public class AdventureSelectionActivity extends Activity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Method;
+
+public class ChartActivity extends Activity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -31,7 +45,7 @@ public class AdventureSelectionActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adventure_selection);
+        setContentView(R.layout.activity_charts);
         setupActionBar();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.object_drawer_layout);
@@ -62,17 +76,10 @@ public class AdventureSelectionActivity extends Activity {
         // Set the list's click listener
         Utils.setMenuListener(mDrawerList, this);
 
-        ListView lv = (ListView) findViewById(R.id.adventure_list);
-        lv.setAdapter(new AdventureAdapter(this));
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //todo fetch adventure data and launch adventure activity
-                Intent intent = new Intent(AdventureSelectionActivity.this, TransactionActivity.class);
-                intent.putExtra(DashboardTransactionFragment.ID, ((AdventureAdapter) parent.getAdapter()).getId(position));
-                startActivity(intent);
-            }
-        });
+
+//                "http://mobilebanking.elasticbeanstalk.com/piechart", "{\"data\":[[\"category\", \"value\"]," +
+//                "[\"cat1\", 10],[\"cat2\", 20],[\"cat3\", 30],[\"cat4\", 40],[\"cat5\", 50]]}", new Response.Listener() {
+
 
     }
 
@@ -96,9 +103,6 @@ public class AdventureSelectionActivity extends Activity {
 
 
 
-    /**
-     * sets up the action bar with a custom view and changes its font
-     */
     private void setupActionBar() {
         ActionBar ab = getActionBar();
         ab.setDisplayShowCustomEnabled(true);
@@ -109,12 +113,43 @@ public class AdventureSelectionActivity extends Activity {
         View v = inflator.inflate(R.layout.actionbar, null);
 
         TextView titleTV = (TextView) v.findViewById(R.id.title);
-        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Pacifico.ttf");
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Baker.ttf");
         titleTV.setTypeface(tf);
+
 
         ab.setCustomView(v);
 
-        ab.setDisplayHomeAsUpEnabled(false);
+        //ab.setDisplayHomeAsUpEnabled(false);
         ab.setHomeButtonEnabled(true);
     }
+
+    public void connect() throws JSONException {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://beaconchat-env.elasticbeanstalk.com/connect";
+
+        JSONObject postdata = new JSONObject();
+
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.POST, url, postdata, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        //mTxtDisplay.setText("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        String s;
+                        s = "";
+                    }
+                });
+// Add the request to the RequestQueue.
+        queue.add(jsObjRequest);
+
+    }
+
 }

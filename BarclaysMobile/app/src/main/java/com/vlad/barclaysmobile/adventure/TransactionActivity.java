@@ -113,6 +113,7 @@ public class TransactionActivity extends FragmentActivity implements DashboardTr
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Baker.ttf");
         titleTV.setTypeface(tf);
 
+
         ab.setCustomView(v);
 
         //ab.setDisplayHomeAsUpEnabled(false);
