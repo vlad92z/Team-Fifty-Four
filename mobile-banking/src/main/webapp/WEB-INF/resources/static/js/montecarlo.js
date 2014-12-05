@@ -193,7 +193,7 @@ function drawChart() {
         },
         'lineWidth' : 3,
         'vAxis'  : { 'title': 'Balance, GBP' },
-        'width'  : 800,
+        'width'  : 1024,
         'height' : 800,
         'fontSize'  : 28,
     };
