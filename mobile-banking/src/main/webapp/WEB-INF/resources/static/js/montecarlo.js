@@ -45,16 +45,16 @@ function monteCarlo(mean, variance, Nsim, Ndays) {
 function getMinFlow(simulation) {
     return simulation.reduce(function(best, curr) {
         currSum = sum(curr);
-        return (currSum > best[0]) ? [currSum, curr] : best;
-    }, [-1, []])[1];
+        return (currSum < best[0]) ? [currSum, curr] : best;
+    }, [1 << 15, []])[1];
 }
 
 // get maximum flow from the simulation
 function getMaxFlow(simulation) {
     return simulation.reduce(function(best, curr) {
         currSum = sum(curr);
-        return (currSum < best[0]) ? [currSum, curr] : best;
-    }, [1 << 15, []])[1];
+        return (currSum > best[0]) ? [currSum, curr] : best;
+    }, [-1, []])[1];
 }
 
 // get average flow from the simulation
@@ -90,13 +90,10 @@ function transposeTo(dest, arr) {
 //-----------------------------------------------------------
 // parse get parameters
 //-----------------------------------------------------------
-function getHistory() {
-    var extractHistory = function() {
-        return $_GET['history'].split(',').map(function(x) {
-            return parseFloat(x);
-        });
-    }
-    return !!$_GET['history'] ? extractHistory() : undefined;
+function getList(key) {
+    return !!$_GET['history'] ? $_GET[key].split(',').map(function(x) {
+        return parseFloat(x);
+    }) : undefined;
 }
 
 function getFloat(key) {
@@ -115,6 +112,8 @@ function getCredMean() { return getFloat('credMean'); }
 function getCredVariance() { return getFloat('credVariance'); }
 function getNSim() { return getInt('sims'); }
 function getNDays() { return getInt('days'); }
+function getHistory() { return getList('history'); }
+
 
 //-----------------------------------------------------------
 // display thingies
@@ -125,11 +124,11 @@ function drawChart() {
     
     var chartName = getChartName() || 'Balance Projections';
     var chartType = getChartType() || 'balance';
-    var history = getHistory() || [310.2, 305.7, 550.7, 545.2, 520.3, 510.2, 502.52];
     var debMean = getDebMean() || 45.0;
     var debVariance = getDebVariance() || 100.0;
     var credMean = getCredMean() || 42.0;
     var credVariance = getCredVariance() || 130.0;
+    var history = getHistory() || [590.08, 590.08, 581.36, 562.36, 562.36, 562.36, 562.36];
 
     var Nsim  = getNSim() || 100;
     var Ndays = getNDays() || 30;
@@ -139,13 +138,13 @@ function drawChart() {
     var credit = monteCarlo(credMean, credVariance, Nsim, Ndays);
 
     // extracting specfics
-    var minDebit = history.concat(getMinFlow(debit));
-    var maxDebit = history.concat(getMaxFlow(debit));
-    var avgDebit = history.concat(getAvgFlow(debit));
+    var minDebit = getMinFlow(debit);
+    var maxDebit = getMaxFlow(debit);
+    var avgDebit = getAvgFlow(debit);
 
-    var minCredit = history.concat(getMinFlow(credit));
-    var maxCredit = history.concat(getMaxFlow(credit));
-    var avgCredit = history.concat(getAvgFlow(credit));
+    var minCredit = getMinFlow(credit);
+    var maxCredit = getMaxFlow(credit);
+    var avgCredit = getAvgFlow(credit);
 
     var initBalance = history[history.length - 1];
     var minBalance = calcBalance(initBalance, maxDebit, minCredit);
@@ -167,30 +166,37 @@ function drawChart() {
     }
     var series = transposeTo([], days);
 
-    series = transposeTo(series, graphs[chartType][0]);
-    series = transposeTo(series, graphs[chartType][1]);
-    series = transposeTo(series, graphs[chartType][2]);
+    series = transposeTo(series, history.concat(graphs[chartType][0]));
+    series = transposeTo(series, history.concat(graphs[chartType][1]));
+    series = transposeTo(series, history.concat(graphs[chartType][2]));
+    console.log(series);
     
     // Create the data table.
     var data = new google.visualization.DataTable();
     data.addColumn('date', 'days');
-    data.addColumn('number', 'Max Balance');
     data.addColumn('number', 'Min Balance');
+    data.addColumn('number', 'Max Balance');
     data.addColumn('number', 'Predicted Balance');
     data.addRows(series);
 
     // Set chart options
-    var options = {'title'  : chartName,
-                   'legend' : 'bottom',
-                   'series' : {
-                        1: { 'color': '#01afef' },
-                        2: { 'color': '#007eb6' },
-                        3: { 'color': '#00395d' },
-                   },
-                   'lineWidth': 3,
-                   'vAxis'  : { 'title': 'Balance, GBP' },
-                   'width': window.innerWith,
-                   'height': window.innerHeight * 1 /2, };
+    var options = {
+        'title'  : chartName,
+        'legend' : { 
+            'position': 'bottom',
+            'textStyle': { 'fontSize': 16 },
+        },
+        'series' : {
+            1: { 'color': '#01afef' },
+            2: { 'color': '#007eb6' },
+            3: { 'color': '#00395d' },
+        },
+        'lineWidth' : 3,
+        'vAxis'  : { 'title': 'Balance, GBP' },
+        'width'  : 800,
+        'height' : 800,
+        'fontSize'  : 28,
+    };
 
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.LineChart(document.getElementById('chart-div'));
