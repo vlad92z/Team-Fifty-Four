@@ -181,7 +181,7 @@ function drawChart() {
 
     // Set chart options
     var options = {
-        'title'  : chartName,
+        //'title'  : chartName,
         'legend' : { 
             'position': 'bottom',
             'textStyle': { 'fontSize': 32 },
