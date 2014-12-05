@@ -1,5 +1,6 @@
 package uk.co.barclays.openminds.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import uk.co.barclays.openminds.model.BankAccount;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 @RestController
 @RequestMapping(value = { "/api" })
@@ -37,6 +44,11 @@ public class ApiController {
 	public Object error(HttpServletResponse response) {
 		response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		return new Object();
+	}
+	
+	@RequestMapping(value = "account", method = RequestMethod.GET)
+	public BankAccount getAccount(Model model) throws JsonParseException, JsonMappingException, IOException {
+		return BankAccount.getInstance();
 	}
 
 }

@@ -18,5 +18,15 @@ public class StatementTest {
 			System.out.println(t);
 		}
 	}
+	
+	@Test
+	public void test2() throws JsonParseException, JsonMappingException, IOException {
+	/*	Statement statement = Statement.readInstance("../../../../../convertcsv.json");
+		for (Transaction t : statement.getTransactions()){
+			System.out.println(t);
+		}*/
+	}
+	
+	
 
 }

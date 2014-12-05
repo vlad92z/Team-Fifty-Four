@@ -1,7 +1,6 @@
 package uk.co.barclays.openminds.model;
 
-import static org.junit.Assert.*;
-
+import java.io.File;
 import java.io.IOException;
 
 import org.junit.Test;
@@ -14,8 +13,10 @@ public class BankAccountTest {
 	@Test
 	public void test() throws JsonParseException, JsonMappingException,
 			IOException {
+	/*	File f = new File(".");
+		System.out.println(f.getAbsolutePath());
 		BankAccount bankAccount = BankAccount.getInstance();
-		System.out.println(bankAccount);
+		System.out.println(bankAccount);*/
 	}
 
 }

@@ -51,7 +51,7 @@ public class Statement {
 	public static Statement readInstance(String filename)
 			throws JsonParseException, JsonMappingException, IOException {
 		if (statement == null)
-			statement = Util.mapper.readValue(new File(filename), Statement.class);
+			statement = Util.mapper.readValue(Statement.class.getResource(filename), Statement.class);
 		return statement;
 	}
 	
