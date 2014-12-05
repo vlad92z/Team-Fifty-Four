@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.vlad.barclaysmobile.adventure.AdventureActivity;
+import com.vlad.barclaysmobile.adventure.TransactionActivity;
 import com.vlad.barclaysmobile.adventureselection.AdventureSelectionActivity;
 import com.vlad.barclaysmobile.dashboard.DashboardActivity;
 import com.vlad.barclaysmobile.dashboard.DashboardTransactionFragment;
@@ -32,12 +32,12 @@ public class Utils {
                         break;
                     case 2:
                         //todo fetch adventure data and launch adventure activity
-                        Intent intent = new Intent(activity, AdventureActivity.class);
+                        Intent intent = new Intent(activity, TransactionActivity.class);
                         intent.putExtra(DashboardTransactionFragment.ID, UserManager.getInstance().getUser().getCurrentAdventure());
                         activity.startActivity(intent);
                         break;
                     case 3:
-                        Intent intent2 = new Intent(activity, AdventureSelectionActivity.class);
+                        Intent intent2 = new Intent(activity, TransactionActivity.class);
                         activity.startActivity(intent2);
                         break;
                     case 4:
