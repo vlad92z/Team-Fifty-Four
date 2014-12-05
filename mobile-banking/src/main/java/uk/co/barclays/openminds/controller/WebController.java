@@ -58,15 +58,15 @@ public class WebController {
 	
 	private ArrayList<ArrayList<Object>> genData(){
 		Object[][] tmpData = new Object[][]{{"Category", "Spent"},
-	             {"Rent", 25},
-	             {"Bills", 11},
-	             {"Gym", 2},
-	             {"Food", 7},
-	             {"Travel", 8},
-	             {"Heathcare", 5},
-	             {"Junkfood", 3},
-	             {"Fuel", 18},
-	             {"Enterteinment", 4}};
+	             {"Rent", 250},
+	             {"Food", 100},
+	             {"Travel", 70},
+	             {"Fuel", 65},
+	             {"Bills", 60},
+	             {"Enterteinment", 50},
+	             {"Heathcare", 25},
+	             {"Junkfood", 15},
+	             {"Gym", 15}};
 		ArrayList<ArrayList<Object>> data = new ArrayList<ArrayList<Object>>();
 		for ( Object[] s : tmpData){
 			data.add(new ArrayList<Object>(Arrays.asList(s)));
