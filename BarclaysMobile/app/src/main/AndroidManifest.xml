@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.vlad.barclaysmobile.adventure.AdventureActivity"
+            android:name=".adventure.TransactionActivity"
             android:label="@string/title_activity_adventure"
             android:screenOrientation="portrait" >
         </activity>

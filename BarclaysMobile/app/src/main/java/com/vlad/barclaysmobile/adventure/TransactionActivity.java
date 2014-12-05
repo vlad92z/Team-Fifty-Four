@@ -1,50 +1,46 @@
 package com.vlad.barclaysmobile.adventure;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.vlad.barclaysmobile.R;
-import com.vlad.barclaysmobile.classes.Adventure;
-import com.vlad.barclaysmobile.classes.Landmark;
+import com.vlad.barclaysmobile.dashboard.DashboardPagerAdapter;
 import com.vlad.barclaysmobile.dashboard.DashboardTransactionFragment;
-import com.vlad.barclaysmobile.object.ObjectActivity;
-import com.vlad.barclaysmobile.utils.MockDatabase;
-import com.vlad.barclaysmobile.utils.UserManager;
 import com.vlad.barclaysmobile.utils.Utils;
 
-public class AdventureActivity extends Activity {
+public class TransactionActivity extends FragmentActivity implements DashboardTransactionFragment.OnFragmentInteractionListener{
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
-    private Adventure adventure;
-    private int progress;
+    TransactionPagerAdapter transactionAdapter;
+    ViewPager transactionPager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adventure);
+        setContentView(R.layout.activity_transactions);
+
+        transactionAdapter =
+                new TransactionPagerAdapter(
+                        getSupportFragmentManager());
+        transactionPager = (ViewPager) findViewById(R.id.transaction_pager);
+        transactionPager.setAdapter(transactionAdapter);
+        transactionPager.setCurrentItem(transactionAdapter.getCount() - 1);
 
         setupActionBar();
 
@@ -74,21 +70,7 @@ public class AdventureActivity extends Activity {
         Utils.setMenuListener(mDrawerList, this);
 
         /** initializing the actual adventure activity views*/
-        if (!setAdventure(getIntent().getStringExtra(DashboardTransactionFragment.ID)))
-            finish();
-        ListView adventureSteps = (ListView) findViewById(R.id.directions_list);
-        adventureSteps.setAdapter(new AdventureStepsAdapter(adventure.getRoute(), progress, AdventureActivity.this));
-        adventureSteps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //todo meaningful logic
-                Intent intent = new Intent(AdventureActivity.this, ObjectActivity.class);
-                intent.putExtra("ID", ((AdventureStepsAdapter) parent.getAdapter()).getId(position));
-                startActivity(intent);
-            }
-        });
 
-        setupMap();
 
     }
 
@@ -128,43 +110,17 @@ public class AdventureActivity extends Activity {
         View v = inflator.inflate(R.layout.actionbar, null);
 
         TextView titleTV = (TextView) v.findViewById(R.id.title);
-        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Pacifico.ttf");
+        Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Baker.ttf");
         titleTV.setTypeface(tf);
-        if (!UserManager.getInstance().getUser().getAdventures().contains(getIntent().getStringExtra(DashboardTransactionFragment.ID))){
-            //TextView join = (TextView) v.findViewById(R.id.join_adventure_button);
-            //join.setVisibility(View.VISIBLE);
-            //join.setTypeface(tf);
-        }
 
         ab.setCustomView(v);
 
-//        ab.setDisplayHomeAsUpEnabled(false); todo no idea why this is needed in this activity but not dashboard
+        //ab.setDisplayHomeAsUpEnabled(false);
         ab.setHomeButtonEnabled(true);
     }
 
-    /**
-     * Gets the adventure from the database based on its id
-     * at the moment this is mocked
-     */
-    private boolean setAdventure(String adventureId){
-        adventure = MockDatabase.getInstance().getAdventures().get(adventureId);
-        progress = 1;
-        return true;
-    }
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
-    public void setupMap(){
-
-        GoogleMap googleMap;
-        googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.adventure_map)).getMap();
-        double lat = 55.871620;
-        double lng = -4.289067;
-        LatLng myLocation = new LatLng(lat, lng);//todo Glasgow Uni can use location manager instead, which is more time consuming
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(myLocation).zoom(14.0f).build();
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-        for (String m : adventure.getRoute()){//adds marker for each location with title
-            Landmark landm = MockDatabase.getInstance().getLandmarks().get(m);
-            googleMap.addMarker(new MarkerOptions().position(new LatLng(landm.getLatitude(), landm.getLongitude())).title(landm.getName()));
-        }
-        googleMap.moveCamera(cameraUpdate);
     }
 }
